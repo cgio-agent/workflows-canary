@@ -1,0 +1,10 @@
+{
+  "name": "workflows-canary",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Disposable public canary for chrisgriffin/workflows: a public caller of the fleet's reusable CI.",
+  "type": "module",
+  "scripts": {
+    "test": "node --test"
+  }
+}
