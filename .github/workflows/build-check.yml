@@ -1,7 +1,7 @@
 name: build
 
 # The canary: a PUBLIC repo calling the reusable CI gate hosted in the PUBLIC
-# chrisgriffin/workflows repo, pinned to the branch under review.
+# chrisgriffin/workflows repo, at develop, the merged state.
 
 on:
   push:
@@ -14,7 +14,7 @@ jobs:
     permissions:
       contents: read
       packages: read
-    uses: chrisgriffin/workflows/.github/workflows/_reusable-node-ci.yml@bootstrap-shared-ci
+    uses: chrisgriffin/workflows/.github/workflows/_reusable-node-ci.yml@develop
     with:
       run: npm test
       claude_md_budget: "2000"
