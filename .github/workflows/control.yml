@@ -6,7 +6,7 @@ name: control
 
 on:
   push:
-    branches: [main]
+    branches: [develop]
 
 jobs:
   ci:
