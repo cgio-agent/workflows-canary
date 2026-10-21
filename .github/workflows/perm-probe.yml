@@ -1,0 +1,30 @@
+name: perm-probe
+
+# Probe for chrisgriffin/ops#1685 item 3: can GITHUB_TOKEN create an issue
+# comment on a PULL REQUEST thread with `issues: write` alone, no
+# `pull-requests: write`? The mention responder's placeholder is exactly
+# that call.
+
+on:
+  workflow_dispatch:
+    inputs:
+      pr:
+        required: true
+        type: string
+
+permissions:
+  issues: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7.1.0
+        with:
+          script: |
+            const { data } = await github.rest.issues.createComment({
+              ...context.repo,
+              issue_number: Number('${{ inputs.pr }}'),
+              body: 'perm-probe: posted with `issues: write` only.',
+            })
+            core.info(`comment ${data.id} at ${data.html_url}`)
