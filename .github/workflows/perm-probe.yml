@@ -6,11 +6,7 @@ name: perm-probe
 # that call.
 
 on:
-  workflow_dispatch:
-    inputs:
-      pr:
-        required: true
-        type: string
+  pull_request:
 
 permissions:
   issues: write
@@ -24,7 +20,7 @@ jobs:
           script: |
             const { data } = await github.rest.issues.createComment({
               ...context.repo,
-              issue_number: Number('${{ inputs.pr }}'),
+              issue_number: context.issue.number,
               body: 'perm-probe: posted with `issues: write` only.',
             })
             core.info(`comment ${data.id} at ${data.html_url}`)
