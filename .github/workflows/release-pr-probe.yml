@@ -1,0 +1,15 @@
+name: Release PR probe
+
+# chrisgriffin/ops#1702: the release PR body run from a PRIVATE caller, at
+# 005-release-pr-fetch-auth. On a branch's creation, not a push, so the body's push-only sweep
+# dispatch (which needs a token this canary does not hold) is skipped.
+
+on: create
+
+jobs:
+  release-pr:
+    permissions:
+      contents: write
+      pull-requests: write
+      statuses: write
+    uses: chrisgriffin/workflows/.github/workflows/_reusable-release-pr.yml@005-release-pr-fetch-auth
